@@ -1,16 +1,13 @@
-# This is a sample Python script.
-
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+from src.Controller.encrypt_controller import TuringController
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+def main():
+    controller = TuringController('TuringMachines/Encrypt/encrypt.json')
+    input_string = input(
+        "Ingrese la llave seguida del mensaje a cifrar (ejemplo: 3#ROMA NO FUE CONSTRUIDA EN UN DIA): ")
+    encrypted_message = controller.encrypt_message(input_string)
+    print("Mensaje encriptado:", encrypted_message)
 
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+if __name__ == "__main__":
+    main()
