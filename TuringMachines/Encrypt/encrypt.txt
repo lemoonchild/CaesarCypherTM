@@ -1,1 +1,0 @@
-print("Solo para crear las carpetas, no tiene pq ir en el archivo")
