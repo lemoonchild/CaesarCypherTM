@@ -6,14 +6,14 @@ import pandas as pd
 def visualize_turing_machine(logs, tape):
     st.subheader("🔍 Proceso Detallado de la Simulación")
 
-    # Mostrar la cinta con la posición del cabezal
+    
     st.markdown("### Visualización de la Cinta")
     highlighted_tape = "".join(
         [f"**[{char}]**" if i == logs[-1]["head_position"] else char for i, char in enumerate(tape)]
     )
     st.write(f"`{highlighted_tape}`")
 
-    # Crear un DataFrame para mostrar los pasos en forma de tabla
+    
     steps_data = []
     for log in logs:
         step = {
@@ -24,7 +24,7 @@ def visualize_turing_machine(logs, tape):
         }
         steps_data.append(step)
 
-    # Mostrar la tabla con los pasos
+    
     df_steps = pd.DataFrame(steps_data)
     st.dataframe(df_steps)
 
@@ -61,7 +61,7 @@ def main():
                 st.success("Mensaje desencriptado:")
                 st.code(result, language="")
 
-            # Mostrar la visualización gráfica del proceso
+            
             tape = list(f"{key}#{message}")
             visualize_turing_machine(logs, tape)
 
