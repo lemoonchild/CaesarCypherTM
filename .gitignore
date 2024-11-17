@@ -1,0 +1,89 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+env/
+.venv/
+
+# Configuration files
+*.ini
+*.cfg
+*.toml
+
+# Editor / IDE directories
+.vscode/
+.idea/
+*.sublime-workspace
+
+# MacOS files
+.DS_Store
+
+# Python cache
+*.egg-info/
+.eggs/
+*.pyo
+*.pyd
+*.pyd
+*.whl
+
+# Logs and temporary files
+*.log
+*.bak
+*.swp
+*.tmp
+*.temp
+*.out
+*.pid
+
+# Streamlit cache
+.streamlit/
+.cache/
+__pycache__/
+
+# Pytest cache
+.pytest_cache/
+
+# Coverage reports
+htmlcov/
+.coverage
+.cache
+coverage.xml
+
+# MyPy cache
+.mypy_cache/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Distribution / packaging
+dist/
+build/
+
+# Local data files
+*.sqlite3
+*.db
+*.csv
+*.json
+*.xlsx
+*.xls
+
+# Environments
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+
+# User-specific files
+*.bak
+Thumbs.db
+*.env
+node_modules/
+npm-debug.log*
+
+# Exclude sensitive files
+secrets.json
+keys.json

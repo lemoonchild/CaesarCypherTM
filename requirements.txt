@@ -1,0 +1,9 @@
+# Streamlit para la interfaz de usuario
+streamlit>=1.25.0
+
+# Dependencias principales
+pandas>=2.0.0
+jsonschema>=4.19.0
+
+
+

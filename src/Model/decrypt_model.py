@@ -1,33 +1,24 @@
 import json
 
 def load_machine_config(file_path):
-    """
-    Carga el archivo de configuración de la máquina de Turing.
-    """
     with open(file_path, 'r') as file:
         return json.load(file)
 
 def get_shifted_char(char, key, alphabet):
-    """
-    Desplaza el carácter según la clave proporcionada usando el Cifrado César.
-    """
     if char.isupper():
         uppercase_letters = [c for c in alphabet if c.isupper()]
         index = uppercase_letters.index(char)
-        shifted_index = (index + key) % len(uppercase_letters)
+        shifted_index = (index - key) % len(uppercase_letters)
         return uppercase_letters[shifted_index]
     elif char.islower():
         lowercase_letters = [c for c in alphabet if c.islower()]
         index = lowercase_letters.index(char)
-        shifted_index = (index + key) % len(lowercase_letters)
+        shifted_index = (index - key) % len(lowercase_letters)
         return lowercase_letters[shifted_index]
     else:
         return char
 
 def format_transition(transition):
-    """
-    Convierte una transición a un formato legible.
-    """
     current_state = transition['current_state']
     read_symbol = transition['read_symbol']
     next_state = transition['next_state']
@@ -36,9 +27,6 @@ def format_transition(transition):
     return f"Estado: {current_state} → {next_state} | Leer: {read_symbol} | Escribir: {write_symbol} | Movimiento: {movement}"
 
 def simulate_turing_machine(input_string, config):
-    """
-    Simula la máquina de Turing para encriptar un mensaje utilizando el Cifrado César.
-    """
     tape = list(input_string)
     current_state = config['q0']
     head_position = 0
@@ -51,8 +39,6 @@ def simulate_turing_machine(input_string, config):
     while current_state != 'q_accept' and head_position < len(tape):
         current_char = tape[head_position]
         transition_applied = False
-
-        # Crear una entrada de log para este paso
         log_entry = {
             "current_state": current_state,
             "head_position": head_position,
@@ -67,7 +53,6 @@ def simulate_turing_machine(input_string, config):
                 movement = transition['movement']
                 next_state = transition['next_state']
 
-                # Verificar si el símbolo leído coincide con el patrón
                 symbol_matches = (
                     read_symbol == current_char or
                     (read_symbol == '[A-Za-z]' and current_char.isalpha()) or
@@ -78,58 +63,40 @@ def simulate_turing_machine(input_string, config):
                 )
 
                 if symbol_matches:
-                    # Formatear y registrar la transición aplicada
                     log_entry["transition"] = format_transition(transition)
 
-                    # Aplicar el símbolo de escritura
                     if write_symbol == "shift([A-Za-z], key)":
                         if key is None:
-                            # Convertir la clave a entero
                             key = int(''.join(key_chars))
                         shifted_char = get_shifted_char(current_char, key, alphabet)
                         tape[head_position] = shifted_char
                     elif write_symbol in ['[0-9]', '[A-Za-z]']:
-                        # Mantener el mismo carácter
                         tape[head_position] = current_char
                     else:
-                        # Aplicar el símbolo de escritura especificado
                         tape[head_position] = write_symbol
 
-                    # Mover el cabezal
                     if movement == 'R':
                         head_position += 1
                     elif movement == 'L':
                         head_position -= 1
 
-                    # Actualizar el estado actual
                     current_state = next_state
                     transition_applied = True
 
-                    # Leer los dígitos de la clave si estamos en el estado de lectura de clave
                     if current_state == 'q_read_key' and current_char.isdigit():
                         key_chars.append(current_char)
 
                     break
 
-        # Agregar la entrada de log para este paso
         logs.append(log_entry)
 
-        # Si no se aplicó ninguna transición, registrar el error y detener la simulación
         if not transition_applied:
             log_entry["transition"] = "No se encontró una transición válida"
             logs.append(log_entry)
             break
 
-    # Unir la cinta completa después de la simulación
     full_tape = ''.join(tape)
-
-    # Encontrar la posición del separador '#'
     separator_index = full_tape.find('#')
+    decrypted_message = full_tape[separator_index + 1:] if separator_index != -1 else full_tape
 
-    # Extraer el mensaje encriptado después del separador '#'
-    if separator_index != -1:
-        encrypted_message = full_tape[separator_index + 1:]
-    else:
-        encrypted_message = full_tape
-
-    return encrypted_message, logs
+    return decrypted_message, logs
