@@ -1,0 +1,68 @@
+{
+  "Q": ["q0", "q_read_key", "q_decrypt", "q_accept"],
+  "Sigma": [
+    "#",
+    " ",
+    "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M",
+    "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z",
+    "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m",
+    "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",
+    "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"
+  ],
+  "Gamma": [
+    "#",
+    " ",
+    "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M",
+    "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z",
+    "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m",
+    "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",
+    "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
+    "_"
+  ],
+  "q0": "q0",
+  "F": ["q_accept"],
+  "delta": [
+    {
+      "current_state": "q0",
+      "read_symbol": "[0-9]",
+      "next_state": "q_read_key",
+      "write_symbol": "[0-9]",
+      "movement": "R"
+    },
+    {
+      "current_state": "q_read_key",
+      "read_symbol": "[0-9]",
+      "next_state": "q_read_key",
+      "write_symbol": "[0-9]",
+      "movement": "R"
+    },
+    {
+      "current_state": "q_read_key",
+      "read_symbol": "#",
+      "next_state": "q_decrypt",
+      "write_symbol": "#",
+      "movement": "R"
+    },
+    {
+      "current_state": "q_decrypt",
+      "read_symbol": "[A-Za-z]",
+      "next_state": "q_decrypt",
+      "write_symbol": "shift([A-Za-z], key)",
+      "movement": "R"
+    },
+    {
+      "current_state": "q_decrypt",
+      "read_symbol": " ",
+      "next_state": "q_decrypt",
+      "write_symbol": " ",
+      "movement": "R"
+    },
+    {
+      "current_state": "q_decrypt",
+      "read_symbol": "_",
+      "next_state": "q_accept",
+      "write_symbol": "_",
+      "movement": "S"
+    }
+  ]
+}
